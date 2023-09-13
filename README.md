@@ -1,3 +1,5 @@
+For run app create a ".env" file with password like a ".example.env" file
+
 For run docker postgresql:
 1. Pull docker image of postgres
 docker pull postgres

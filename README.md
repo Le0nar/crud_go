@@ -9,3 +9,9 @@ migrate create -ext sql -dir ./schema -seq init
 
 Apply migration up scheme
 migrate -path ./schema -database 'postgres://postgres:qwerty@localhost:5436/postgres?sslmode=disable' up
+
+Postresql via docker:
+
+1.docker exec -it {container_id} /bin/bash
+2.root@3d52773f7ff2:/# psql -U postgres
+3. postgres=# \d

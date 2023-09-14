@@ -17,3 +17,10 @@ Postresql via docker:
 1.docker exec -it {container_id} /bin/bash
 2.root@3d52773f7ff2:/# psql -U postgres
 3. postgres=# \d
+
+
+Run dev mode:
+1. run docker
+docker run --name=news-db -e POSTGRES_PASSWORD='qwerty' -p 5436:5432 -d --rm postgres
+2. run app
+go run cmd/main.go

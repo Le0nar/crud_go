@@ -1,9 +1,16 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 func (h *Handler) createNews(c *gin.Context) {
-
+	// TODO: удалить заглушку
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"test": "test",
+	})
 }
 
 func (h *Handler) getAllNews(c *gin.Context) {

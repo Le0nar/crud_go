@@ -12,6 +12,7 @@ type Authorization interface {
 }
 
 type News interface {
+	CreateNews(news news.News) (int, error)
 }
 
 type Service struct {
@@ -22,5 +23,6 @@ type Service struct {
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
+		News: NewNewsService(repos.News),
 	}
 }

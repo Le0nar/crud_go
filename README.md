@@ -4,7 +4,7 @@ For run docker postgresql:
 1. Pull docker image of postgres
 docker pull postgres
 2. Run container
-docker run --name=news-db -e POSTGRES_PASSWORD='qwerty' -p 5436:5432 -d --rm postgres
+docker run --name=news-db -e POSTGRES_PASSWORD='qwerty' -p 5436:5432 -d postgres
 
 Example of creating a migration scheme:
 migrate create -ext sql -dir ./schema -seq init
@@ -21,6 +21,6 @@ Postresql via docker:
 
 Run dev mode:
 1. run docker
-docker run --name=news-db -e POSTGRES_PASSWORD='qwerty' -p 5436:5432 -d --rm postgres
+docker run --name=news-db -e POSTGRES_PASSWORD='qwerty' -p 5436:5432 -d postgres
 2. run app
 go run cmd/main.go

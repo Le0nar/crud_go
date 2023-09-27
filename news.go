@@ -1,8 +1,9 @@
 package news
 
 type News struct {
-	Id          int    `json:"id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Date        int    `json:"date"`
+	Id          int       `json:"-" db:"id"`
+	Title       string    `json:"title" binding:"required"`
+	Description string    `json:"description" binding:"required"`
+	Date        string `json:"-"`
+	UserId 		int       `json:"userId" binding:"required"`
 }

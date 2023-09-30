@@ -30,10 +30,8 @@ func (r *NewsPostgres) CreateNews(news news.News) (int, error) {
 
 func (r *NewsPostgres) GetAllNews() ([]news.News, error) {
 	var newsList []news.News
-
-	// TODO: ошибка вроде бы здесь в query
-
-	err := r.db.Select(&newsList, "SELECT * FROM news ")
+	query := fmt.Sprintf("SELECT * FROM %s", newsTable)
+	err := r.db.Select(&newsList, query)
 
 	return newsList, err
 }

@@ -27,3 +27,13 @@ func (r *NewsPostgres) CreateNews(news news.News) (int, error) {
 
 	return id, nil
 }
+
+func (r *NewsPostgres) GetAllNews() ([]news.News, error) {
+	var newsList []news.News
+
+	// TODO: ошибка вроде бы здесь в query
+
+	err := r.db.Select(&newsList, "SELECT * FROM news ")
+
+	return newsList, err
+}

@@ -13,6 +13,7 @@ type Authorization interface {
 
 type News interface {
 	CreateNews(news news.News) (int, error)
+	GetAllNews() ([]news.News, error)
 }
 
 type Service struct {

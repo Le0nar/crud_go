@@ -27,7 +27,13 @@ func (h *Handler) createNews(c *gin.Context) {
 }
 
 func (h *Handler) getAllNews(c *gin.Context) {
+	newsList, err := h.services.News.GetAllNews()
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
 
+	c.JSON(http.StatusOK, newsList)
 }
 
 func (h *Handler) getNewsById(c *gin.Context) {

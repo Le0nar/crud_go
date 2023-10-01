@@ -25,3 +25,7 @@ func (s *NewsService) CreateNews(news news.News) (int, error) {
 func (s *NewsService) GetAllNews() ([]news.News, error) {
 	return s.repo.GetAllNews()
 }
+
+func (s *NewsService) GetNewsById(newsId int) (news.News, error) {
+	return s.repo.GetNewsById(newsId)
+}

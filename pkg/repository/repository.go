@@ -13,6 +13,7 @@ type Authorization interface {
 type News interface {
 	CreateNews(news news.News) (int, error)
 	GetAllNews() ([]news.News, error)
+	GetNewsById(newsId int) (news.News, error)
 }
 
 type Repository struct {

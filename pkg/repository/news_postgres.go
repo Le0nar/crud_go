@@ -35,3 +35,11 @@ func (r *NewsPostgres) GetAllNews() ([]news.News, error) {
 
 	return newsList, err
 }
+
+func (r *NewsPostgres) GetNewsById(newsId int) (news.News, error) {
+	var newsItem news.News
+	query := fmt.Sprintf("SELECT * FROM %s where id = %d", newsTable, newsId)
+	err := r.db.Get(&newsItem, query)
+
+	return newsItem, err
+}

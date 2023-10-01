@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	news "github.com/Le0nar/crud_go"
 	"github.com/gin-gonic/gin"
@@ -37,7 +38,21 @@ func (h *Handler) getAllNews(c *gin.Context) {
 }
 
 func (h *Handler) getNewsById(c *gin.Context) {
+	itemId, paramError := strconv.Atoi(c.Param("id"))
 
+	if paramError != nil {
+		newErrorResponse(c, http.StatusBadRequest, "invalid id param")
+		return
+	}
+
+	news, err := h.services.News.GetNewsById(itemId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	
+	c.JSON(http.StatusOK, news)
 }
 
 func (h *Handler) updateNews(c *gin.Context) {

@@ -90,4 +90,19 @@ func (h *Handler) updateNews(c *gin.Context) {
 }
 
 func (h *Handler) deleteNews(c *gin.Context) {
+	newsId, paramError := strconv.Atoi(c.Param("id"))
+
+	if paramError != nil {
+		newErrorResponse(c, http.StatusBadRequest, "invalid id param")
+		return
+	}
+
+	err := h.services.News.DeleteNewsById(newsId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	
+	c.JSON(http.StatusOK, "resource deleted successfully")
 }

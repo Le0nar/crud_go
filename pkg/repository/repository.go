@@ -15,6 +15,7 @@ type News interface {
 	GetAllNews() ([]news.News, error)
 	GetNewsById(newsId int) (news.News, error)
 	UpdateNewsById(input news.UpdateNewsInput, newsId int) error
+	DeleteNewsById(newsId int) error
 }
 
 type Repository struct {

@@ -66,3 +66,10 @@ func (r *NewsPostgres) UpdateNewsById(input news.UpdateNewsInput, newsId int) er
 
 	return err
 }
+
+func (r *NewsPostgres) DeleteNewsById(newsId int) error {
+	query := fmt.Sprintf("DELETE FROM %s where id = %d", newsTable, newsId)
+	_, err := r.db.Exec(query)
+	
+	return err
+}

@@ -33,3 +33,7 @@ func (s *NewsService) GetNewsById(newsId int) (news.News, error) {
 func (s *NewsService) UpdateNewsById(input news.UpdateNewsInput, newId int) error {
 	return s.repo.UpdateNewsById(input, newId)
 }
+
+func (s *NewsService) DeleteNewsById(newsId int) error {
+	return s.repo.DeleteNewsById(newsId)
+}

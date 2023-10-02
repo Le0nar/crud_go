@@ -56,9 +56,38 @@ func (h *Handler) getNewsById(c *gin.Context) {
 }
 
 func (h *Handler) updateNews(c *gin.Context) {
+	newsId, paramError := strconv.Atoi(c.Param("id"))
 
+	if paramError != nil {
+		newErrorResponse(c, http.StatusBadRequest, "invalid id param")
+		return
+	}
+
+
+	var input news.UpdateNewsInput
+
+	if err := c.BindJSON(&input); err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	isTitleExist := input.Title != nil
+	isDescriptionExist := input.Description != nil
+
+	if !isTitleExist && !isDescriptionExist {
+		newErrorResponse(c, http.StatusBadRequest, "invalid payload")
+		return
+	}
+
+	err := h.services.UpdateNewsById(input, newsId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, "resource updated successfully")
 }
 
 func (h *Handler) deleteNews(c *gin.Context) {
-
 }

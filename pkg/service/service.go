@@ -15,6 +15,7 @@ type News interface {
 	CreateNews(news news.News) (int, error)
 	GetAllNews() ([]news.News, error)
 	GetNewsById(newsId int) (news.News, error)
+	UpdateNewsById(input news.UpdateNewsInput, newId int) error
 }
 
 type Service struct {

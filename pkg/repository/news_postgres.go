@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+	"strings"
 
 	news "github.com/Le0nar/crud_go"
 	"github.com/jmoiron/sqlx"
@@ -42,4 +43,26 @@ func (r *NewsPostgres) GetNewsById(newsId int) (news.News, error) {
 	err := r.db.Get(&newsItem, query)
 
 	return newsItem, err
+}
+
+func (r *NewsPostgres) UpdateNewsById(input news.UpdateNewsInput, newsId int) error {
+	changedFieldList := make([]string, 0)
+
+	if input.Title != nil {
+		value := fmt.Sprintf("title='%s'", *input.Title)
+		changedFieldList = append(changedFieldList, value)
+	}
+
+	if input.Description != nil {
+		value := fmt.Sprintf("description='%s'", *input.Description)
+		changedFieldList = append(changedFieldList, value)
+	}
+
+	queryFields := strings.Join(changedFieldList, ", ")
+
+	query := fmt.Sprintf("UPDATE %s SET %s WHERE id = %d", newsTable, queryFields, newsId)
+
+	_, err := r.db.Exec(query)
+
+	return err
 }

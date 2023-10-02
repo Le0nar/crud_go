@@ -29,3 +29,7 @@ func (s *NewsService) GetAllNews() ([]news.News, error) {
 func (s *NewsService) GetNewsById(newsId int) (news.News, error) {
 	return s.repo.GetNewsById(newsId)
 }
+
+func (s *NewsService) UpdateNewsById(input news.UpdateNewsInput, newId int) error {
+	return s.repo.UpdateNewsById(input, newId)
+}

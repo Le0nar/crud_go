@@ -1,5 +1,10 @@
 package news
 
+type UpdateNewsInput struct {
+	Title       *string `json:"title"`
+	Description *string `json:"description"`
+}
+
 type News struct {
 	Id          int    `json:"id" db:"id"`
 	Title       string `json:"title" binding:"required"`

@@ -1,7 +1,10 @@
 package main
 
 import (
+	"context"
 	"os"
+	"os/signal"
+	"syscall"
 
 	news "github.com/Le0nar/crud_go"
 	"github.com/Le0nar/crud_go/pkg/handler"
@@ -44,8 +47,24 @@ func main() {
 	srv := new(news.Server)
 	port := viper.GetString("port")
 
-	if err := srv.Run(port, handler.InitRoutes()); err != nil {
-		logrus.Fatalf("error occured while running server: %s", err.Error())
+	go func () {
+		if err := srv.Run(port, handler.InitRoutes()); err != nil {
+			logrus.Fatalf("error occured while running server: %s", err.Error())
+		}
+	} ()
+
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
+	<- quit
+
+	logrus.Print("App is shotting down")
+
+	if err := srv.Shutdown(context.Background()); err != nil {
+		logrus.Errorf("error occured on server shutting down: %s", err.Error())
+	}
+
+	if err := db.Close(); err != nil {
+		logrus.Errorf("error occured on db connection close: %s", err.Error())
 	}
 }
 

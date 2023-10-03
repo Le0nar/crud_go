@@ -3,6 +3,10 @@ package handler
 import (
 	"github.com/Le0nar/crud_go/pkg/service"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
+
+	_ "github.com/Le0nar/crud_go/docs"
 )
 
 type Handler struct {
@@ -33,6 +37,8 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			news.DELETE("/:id", h.deleteNews)
 		}
 	}
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return router
 }

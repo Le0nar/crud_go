@@ -16,6 +16,17 @@ import (
 	"github.com/spf13/viper"
 )
 
+// @Title News App Api
+// @version 1.0.0
+// @description CRUD Api for creating news with authorization
+
+// @host localhost:8000
+// @BasePath /
+
+// @securityDefinitions.apiKey
+// @in eader
+// @name Authorizaiton
+
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 

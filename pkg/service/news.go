@@ -16,8 +16,7 @@ func NewNewsService(repo repository.News) *NewsService {
 }
 
 func (s *NewsService) CreateNews(news news.News) (int, error) {
-	dateNow := time.Now()
-	news.Date = dateNow.String()
+	news.Date = time.Now()
 
 	return s.repo.CreateNews(news)
 }

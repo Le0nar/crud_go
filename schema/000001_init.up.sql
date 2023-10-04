@@ -11,6 +11,6 @@ CREATE TABLE news
     id serial not null unique,
     title varchar(255) not null,
     description varchar(255) not null,
-    date varchar(255) not null,
+    date timestamp not null,
     user_id int references users (id) on delete cascade not null
 );

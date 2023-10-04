@@ -110,7 +110,6 @@ func (h *Handler) getNewsById(c *gin.Context) {
 // @ID update-news-by-id
 // @Accept  json
 // @Produce  json
-// TODO: mb change string to antoher type
 // @Success      200              {string}  string   "resource updated successfully"
 // @Failure 400,404 {object} errorResponse
 // @Failure 500 {object} errorResponse

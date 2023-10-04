@@ -4,6 +4,7 @@ import (
 	"crypto/sha1"
 	"errors"
 	"fmt"
+	"os"
 	"time"
 
 	news "github.com/Le0nar/crud_go"
@@ -11,12 +12,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-// TODO: move salt to .env file
-const (
-	salt = "asdas98das23dds22332a"
-	signingKey = "asdasdasd"
-	tokenTTL = 12 * time.Hour
-)
+const tokenTTL = 12 * time.Hour
 
 type tokenClaims struct {
 	jwt.StandardClaims
@@ -33,7 +29,6 @@ func NewAuthService(repo repository.Authorization) *AuthService {
 
 func (s *AuthService) CreateUser(user news.User) (int, error) {
 	user.Password = generatePasswordHash(user.Password)
-
 	return s.repo.CreateUser(user)
 }
 
@@ -50,6 +45,7 @@ func (s *AuthService) GenerateToken(username, password string) (string, error) {
 		},
 		user.Id,
 	})
+	signingKey := os.Getenv("SIGNING_KEY")
 
 	return token.SignedString([]byte(signingKey))
 }
@@ -59,6 +55,8 @@ func (s *AuthService) ParseToken(accessToken string) (int, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")
 		}
+
+		signingKey := os.Getenv("SIGNING_KEY")
 
 		return []byte(signingKey), nil
 	})
@@ -77,6 +75,7 @@ func (s *AuthService) ParseToken(accessToken string) (int, error) {
 func generatePasswordHash (password string) string {
 	hash := sha1.New()
 	hash.Write([]byte(password))
+	salt := os.Getenv("SALT")
 
 	return fmt.Sprintf("%x", hash.Sum([]byte(salt)))
 }
